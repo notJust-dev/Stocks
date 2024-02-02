@@ -1,0 +1,48 @@
+type FiftyTwoWeek {
+  high: Float
+  high_change: Float
+  high_change_percent: Float
+  low: Float
+  low_change: Float
+  low_change_percent: Float
+  range: String
+}
+
+type Quote {
+  average_volume: Date
+  change: Float
+  close: Float
+  currency: String
+  datetime: Date
+  exchange: String
+  fifty_two_week: FiftyTwoWeek
+  high: Float
+  is_market_open: Boolean
+  low: Float
+  mic_code: String
+  name: String
+  open: Float
+  percent_change: Float
+  previous_close: Float
+  symbol: String
+  timestamp: Int
+  volume: Date
+}
+type Quotes {
+  name: String
+  value: Quote
+}
+
+type Query {
+  quote(symbol: String): Quote
+    @rest(
+      endpoint: "https://api.twelvedata.com/quote"
+      configuration: "twelvedata"
+    )
+  quotes(symbol: String): [Quotes]
+    @rest(
+      endpoint: "https://api.twelvedata.com/quote"
+      configuration: "twelvedata"
+      transforms: [{ pathpattern: ["<>*"], editor: "objectToArray" }]
+    )
+}
