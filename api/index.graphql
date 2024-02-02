@@ -1,3 +1,3 @@
-schema @sdl(files: ["curl/index.graphql"]) {
+schema @sdl(files: ["quote/index.graphql", "time_series/index.graphql"]) {
   query: Query
 }

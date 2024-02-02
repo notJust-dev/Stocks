@@ -1,0 +1,32 @@
+type Meta {
+  currency: String
+  exchange: String
+  exchange_timezone: String
+  interval: String
+  mic_code: String
+  symbol: String
+  type: String
+}
+
+type TimeSeries {
+  meta: Meta
+  status: String
+  values: [ValuesEntry]
+}
+
+type ValuesEntry {
+  close: Float
+  datetime: String
+  high: Float
+  low: Float
+  open: Float
+  volume: Int
+}
+
+type Query {
+  time_series(interval: String, symbol: String): TimeSeries
+    @rest(
+      endpoint: "https://api.twelvedata.com/time_series"
+      configuration: "twelvedata"
+    )
+}
